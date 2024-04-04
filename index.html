@@ -20,6 +20,12 @@
     FB.AppEvents.logPageView();   
   };
 
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
@@ -27,6 +33,21 @@
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<!-- Hier wird der Login-Button eingefügt -->
+<fb:login-button 
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+
+<!-- Hier könnte die Statusänderungs-Rückruffunktion eingefügt werden -->
+<script>
+  function statusChangeCallback(response) {
+    console.log('Statusänderung Callback');
+    console.log(response);
+    // Hier könntest du den erhaltenen Antwort-Status entsprechend deiner Anwendungslogik verarbeiten
+  }
 </script>
 
 </body>
